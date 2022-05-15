@@ -7,7 +7,7 @@ defmodule HedwigSaliva.Mixfile do
     [app: :hedwig_slack,
      name: "Hedwig Slack",
      version: @version,
-     elixir: "~> 1.6",
+     elixir: "~> 1.10.4",
      elixirc_paths: elixirc_paths(Mix.env),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,

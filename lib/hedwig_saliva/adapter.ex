@@ -3,7 +3,7 @@ defmodule Hedwig.Adapters.Saliva do
 
   require Logger
 
-  alias HedwigSaliva.{Connection, RTM}
+  alias HedwigSaliva.Connection
 
   defmodule State do
     defstruct conn: nil,
@@ -20,7 +20,6 @@ defmodule Hedwig.Adapters.Saliva do
 
   def init({robot, opts}) do
     {token, opts} = Keyword.pop(opts, :token)
-    Kernel.send(self(), :rtm_start)
     {:ok, %State{opts: opts, robot: robot, token: token}}
   end
 
@@ -110,10 +109,8 @@ defmodule Hedwig.Adapters.Saliva do
       {:disconnect, reason} ->
         {:stop, reason, state}
       {:reconnect, timeout} ->
-        Process.send_after(self(), :rtm_start, timeout)
         {:noreply, reset_state(state)}
       :reconnect ->
-        Kernel.send(self(), :rtm_start)
         {:noreply, reset_state(state)}
     end
   end

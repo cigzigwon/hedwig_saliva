@@ -7,7 +7,7 @@ defmodule HedwigSaliva.ConnectionSupervisor do
 
   def init([]) do
     children = [
-      worker(HedwigSaliva.Connection, [], restart: :temporary)
+      {HedwigSaliva.Connection, "wss://localhost:3000/socket", restart: :temporary}
     ]
 
     supervise(children, strategy: :simple_one_for_one)

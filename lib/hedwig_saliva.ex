@@ -5,7 +5,7 @@ defmodule HedwigSaliva do
     import Supervisor.Spec, warn: false
 
     children = [
-      supervisor(HedwigSaliva.ConnectionSupervisor, [])
+      {HedwigSaliva.ConnectionSupervisor, []}
     ]
 
     Supervisor.start_link(children, strategy: :one_for_one)
